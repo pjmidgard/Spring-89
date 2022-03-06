@@ -286,6 +286,9 @@ class compression:
                                     if ccc==1:
                                     		nameas=name+".bin"
                                     		T7=T7-(1000*g)
+                                                if T7<0:
+                                                    raise SystemExit
+                                                
                                     
                                   
                                     if ccc==1:
