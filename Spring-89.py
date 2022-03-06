@@ -34,7 +34,7 @@ class compression:
                         
                         if x==True:
                                 Deep=int(Deep)
-                                Deep6=65535
+                                Deep6=65535-25
 
                                 if Deep>Deep6:
                                         Deep=Deep6
@@ -43,7 +43,7 @@ class compression:
                                         Deep=26
                                                 
                                 Deep=Deep
-                                Deep2=Deep+5
+                                Deep2=Deep+2
                                 Deep3=Deep*2
                                 print(Deep)
 
@@ -245,9 +245,11 @@ class compression:
                                     
                                     sda17=""
                  
-                                    sda3="1"+sda3
-                                    
-                                    if Circle_times2>=(2**8)-3:
+                                    if   Circle_times2==0 and SpinS==0:
+                                    	sda3="1"+sda3
+                                    	SpinS=1
+
+                                    if Circle_times2>=(2**48)-3:
                                             ccc=2
                                             
                                     T7 = int(sda3, 2)
@@ -256,7 +258,8 @@ class compression:
                                     
                                     bit=""
 
-                                    e=((2**Deep2))+((2**(Deep2+15)-1))
+                                    e=(2**Deep2)-1
+                                    
                                     g=0
                                     f=0
                                     
@@ -271,37 +274,18 @@ class compression:
                                                 e=e+1
                                                 
                                                 g=g+1
-                                          
-                                        if g>(2**(Deep+22)-1):
-                                                bit="1"
-                                                T7=T7-1
-                                                f=1
-                                       
-                                    if  g>(2**(Deep+22)-1):
-	                                    e=((2**Deep2))+((2**(Deep2+15)-1))
-	                                    g=0
-	                                    f=0
+                                             
+                                        if g>(2**Deep)-1:
+	                                        ccc=2
+	                                        bit=""
+	                                                
+	                                        f=1
+
 	                                
-	                                    while f!=1:
-	                                        T1=T7%e
-	                                        if T1==0:
-	                                                T7=T7//e
-	                                                f=1
-	                                                bit="1"
-	                                           
-	                                        else:
-	                                                e=e+1
-	                                                
-	                                                g=g+1
-	                                                
-	                                        if g>(2**(Deep+22)-1):
-	                                                ccc=2
-	                                                bit=""
-	                                                
-	                                                f=1       
                                                
                                     if ccc==1:
-                                    		nameas=name+".bin" 
+                                    		nameas=name+".bin"
+                                    		T7=T7-(1000*g)
                                     
                                   
                                     if ccc==1:
@@ -309,16 +293,13 @@ class compression:
                                     	    sda17=bin(T7)[2:]
                                    
                                     if ccc==1:
-                                           
-                                            Deep7=Deep+19
-                                            
-                                                           
+                                    	                          
                                             sda23=bin(g)[2:]
-                                            hr=(Deep7)
-        
-                                            lenf1=len(sda23)
-                                            #print(lenf1)
-                                            if lenf1>(Deep7):
+                                            hr=Deep
+                                            
+                                        	
+                                            lenf=len(sda23)
+                                            if lenf>Deep:
                                             	ccc=2
 
                                             if ccc==1:
@@ -334,15 +315,15 @@ class compression:
      
                                     if ccc==1:
                                            
-                                            sda17=sda17+szx4+sda23+bit
+                                            sda17=sda17+szx4+sda23
                                             sda18=sda3
                                             #print(len(sda17))
                               
                                     
                                     lenfS=len(sda17)
-                                    #print(lenfS)
+                                    print(lenfS)
 
-                                    if ccc==2:
+                                    if ccc==2 and Circle_times2==0:
                                                     sda3=sda3[1:]
                                     
                                    
@@ -382,10 +363,10 @@ class compression:
                                             lenf=len(sda29)
 
                                             szx7=""
-                                            xc=8-lenf%8
+                                            xc=48-lenf%48
                                             z=0
                                             if xc!=0:
-                                                if xc!=8:
+                                                if xc!=48:
                                                         while z<xc:
                                                          	szx7="0"+szx7
                                                          	z=z+1
@@ -484,18 +465,18 @@ class compression:
 
                                                 sda10=sda3[0:16]
                                                 Deep5 = int(sda10, 2)
-                                                Deep5=Deep5+5
-                                                Deep4=Deep5-4
+                                                Deep5=Deep5+2
+                                                Deep4=Deep5-2
                                                 sda3=sda3[16:]
                                                 lenf6=len(sda3)
-                                                Deep7=Deep5-5
+                                                Deep7=Deep5-2
                                                 
-                                                sda6=sda3[0:8]
+                                                sda6=sda3[0:48]
                                                 T = int(sda6, 2)
-                                                sda3=sda3[8:]
+                                                sda3=sda3[48:]
                                                 lenf6=len(sda3)
                                                 print("Deep: ")
-                                                print(Deep7)
+                                                print(Deep7-25)
                                                 
                                         if   Circle_times2>0:
                                         	xc3=0
@@ -505,18 +486,19 @@ class compression:
                                         if C==1 and T!=0:
                                                 sda3=sda3[xc3:]
                                                 lenf6=len(sda3)
-                                                sda4=sda3[lenf6-Deep4-19:lenf6-1]
-                                                sda5=sda3[lenf6-1:lenf6]
-                                                sda3=sda3[0:lenf6-Deep4-19]
+                                                sda4=sda3[lenf6-Deep4:lenf6]
+                                              
+                                                sda3=sda3[0:lenf6-Deep4]
                                         
                                                 
                                                 T7 = int(sda3, 2)
                                                 T8 = int(sda4, 2)
-                                                T9 = int(sda5, 2)
-                                                e=((2**Deep5))+((2**(Deep2+5)-1))
+                                                
+                                                e=(2**Deep5)-1
                                                 j=e+T8
-                                                T7=T7*j
-                                                T7=T7+T9
+                                                T7=T7+(1000*T8)
+                                                T7=(T7*j)
+                                        
                                        
                                     sda6=sda4
                                     sda4=""
@@ -526,7 +508,7 @@ class compression:
                                     sda5=""
                                     
                                     
-                                    sda17=bin(T7)[3:]
+                                    sda17=bin(T7)[2:]
                                      
                                     sda2=sda17
                                    
@@ -564,7 +546,12 @@ class compression:
                                             	lenf14=len(sda17)
                                             	#print(lenf14)
                                             	lenf16=lenf14%8
-                                           
+                                            	if lenf16!=0 or lenf14>=((2**40)-1)*8 or Corrupted==1:
+
+                                            		print("file corrupted")
+                                            		raise SystemExit
+                                            		
+                                            	
                                             	lenf=len(sda17)
                                             	szx=""
                                             	xc=8-lenf%8
