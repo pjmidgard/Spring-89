@@ -318,7 +318,7 @@ class compression:
         
                                             lenf1=len(sda23)
                                             #print(lenf1)
-                                            if lenf1==(Deep7):
+                                            if lenf1>(Deep7):
                                             	ccc=2
 
                                             if ccc==1:
