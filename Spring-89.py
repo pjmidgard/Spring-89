@@ -476,7 +476,7 @@ class compression:
                                                 sda3=sda3[48:]
                                                 lenf6=len(sda3)
                                                 print("Deep: ")
-                                                print(Deep7-25)
+                                                print(Deep7)
                                                 
                                         if   Circle_times2>0:
                                         	xc3=0
